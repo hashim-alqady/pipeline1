@@ -5,7 +5,7 @@ pipeline {
         stage('build') {
             steps {
                 echo 'start build1'
-               withCredentials([usernamePassword(credentialsId: 'hashimalqady', usernameVariable: 'user', passwordVariable: 'password')])
+                withCredentials([usernamePassword(credentialsId: 'hashimalqady', usernameVariable: 'user', passwordVariable: 'password')])
                 sh 'docker build -t hashimalqady/test1 .'
                 echo 'start build2' 
                 sh "docker login -u $User -p $Password"
