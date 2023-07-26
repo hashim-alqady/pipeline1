@@ -1,0 +1,24 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('build') {
+            steps {
+               withCredentials([usernamePassword(credentialsId: 'hashimalqady', usernameVariable: 'user', passwordVariable: 'password')])
+                sh 'docker build -t hashimalqady/test1 .' 
+                sh "docker login -u $User -p $Password"
+                sh 'docker push hashimalqady/test1'
+            }
+        }
+         stage('test') {
+            steps {
+                echo 'test complated'
+            }
+        }
+         stage('deploy') {
+            steps {
+                sh 'docker run -p 4000:4000 -d hashimalqady/test1'
+                echo 'deploy complated'
+            }
+    }
+}
