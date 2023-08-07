@@ -22,7 +22,10 @@ pipeline {
         }
          stage('deploy') {
             steps {
-                sh 'docker run -p 4000:4000 -d hashimalqady/test1'
+                script {
+          sh 'ssh -i "ssh_key.pem" ec2-user@ec2-44-202-64-22.compute-1.amazonaws.com  "docker run -p 4000:4000 -d hashimalqady/test1"'
+        }
+                //sh 'docker run -p 4000:4000 -d hashimalqady/test1'
                 echo 'deploy complated'
             }
          }    
